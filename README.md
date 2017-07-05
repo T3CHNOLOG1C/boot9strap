@@ -12,7 +12,8 @@ Launches "boot.firm" off of the SD card or CTRNAND, however, to keep it hidden w
 
 **Credits:**
 
-[SciresM](https://github.com/SciresM): Boot9strap
+
+[SciresM](https://github.com/SciresM): Boot9strap.
 [Normmatt](https://github.com/Normmatt): Theorizing the NDMA overwite exploit.    
 [TuxSH](https://github.com/TuxSH): Help implementing bootrom payloads.    
 [Luma3DS](https://github.com/AuroraWright/Luma3DS): Codebase used in the stage 2 FIRM loader.    
