@@ -8,7 +8,7 @@ For more details about Boot9strap, refer to [this presentation](https://sciresm.
 
 Install via [SafeB9SInstaller](https://github.com/d0k3/SafeB9SInstaller).
 
-Launches "boot.firm" off of the SD card or CTRNAND, however, to keep it hidden with this patch, I recommend loading one of the "hidden" releases of [Sentry](https://github.com/Jan200101/)'s [fork of Luma3DS](https://github.com/Jan200101/Luma3DS) from CTRNAND.
+Launches "boot.firm" off of the SD card or CTRNAND, however, to keep it hidden with this patch, I recommend loading one of the "hidden" releases of [Sentry](https://github.com/Jan200101/)'s [fork of Luma3DS](https://github.com/Jan200101/Luma3DS-Hidden/releases) from CTRNAND.
 
 **Credits:**
 

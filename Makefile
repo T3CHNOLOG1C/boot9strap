@@ -27,7 +27,7 @@ boot9strap: build_boot9strap_firm.py boot9strap.s $(dir_arm9_stage2)/out/arm9.bi
 	@mkdir -p "out"
 	@mkdir -p "build"
 	@armips boot9strap.s
-	@python $^
+	@python3 $^
 
 $(dir_arm9_stage2)/out/arm9.bin: $(dir_arm9_stage2)
 	@$(MAKE) -C $<
