@@ -75,22 +75,22 @@ static void loadFirm(bool isNand, bool bootOnce)
 void main(void)
 {
     setupKeyslots();
-	
+    
     if(mountCtrNand())
     {
-	    if(HID_PAD == SAFEBOOT_BUTTONS)
-		{
-			if(mountSd())
-			{
+        if(HID_PAD == SAFEBOOT_BUTTONS)
+        {
+            if(mountSd())
+            {
 
-				loadFirm(false, true);
-				loadFirm(false, false);
-				unmountSd();
-			}
-		}
+                loadFirm(false, true);
+                loadFirm(false, false);
+                unmountSd();
+            }
+        }
         loadFirm(true, false);
     }
-	
+    
     if(mountSd())
     {
 
