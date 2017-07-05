@@ -38,5 +38,3 @@
 #define BUTTON_LEFT            (1 << 5)
 #define BUTTON_UP              (1 << 6)
 #define BUTTON_DOWN            (1 << 7)
-
-#define NTRBOOT_BUTTONS (BUTTON_START | BUTTON_SELECT | BUTTON_X)

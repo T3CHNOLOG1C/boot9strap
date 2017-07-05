@@ -78,17 +78,7 @@ void main(void)
 
     if(mountSd())
     {
-        /* I believe this is the canonical secret key combination. */
-        if(HID_PAD == NTRBOOT_BUTTONS)
-        {
-            fileWrite((void *)0x08080000, "boot9strap/boot9.bin", 0x10000);
-            fileWrite((void *)0x08090000, "boot9strap/boot11.bin", 0x10000);
-            fileWrite((void *)0x10012000, "boot9strap/otp.bin", 0x100);
-
-            /* Wait until buttons are not held, for compatibility. */
-            while(HID_PAD & NTRBOOT_BUTTONS);
-            wait(1000ULL);
-        }
+        /* Skip NTRBoot combo check and load firms */
 
         loadFirm(false, true);
         loadFirm(false, false);
@@ -97,12 +87,8 @@ void main(void)
 
     if(mountCtrNand())
     {
-        /* Wait until buttons are not held, for compatibility. */
-        if(HID_PAD == NTRBOOT_BUTTONS)
-        {
-            while(HID_PAD & NTRBOOT_BUTTONS);
-            wait(1000ULL);
-        }
+        /* Skip NTRBoot button press check and skip straight to loading FIRM from CTRNAND. */
+
         loadFirm(true, false);
     }
 
