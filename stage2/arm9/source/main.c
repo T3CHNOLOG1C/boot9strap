@@ -80,9 +80,13 @@ void main(void)
     {
 	    if(HID_PAD == SAFEBOOT_BUTTONS)
 		{
-			loadFirm(false, true);
-			loadFirm(false, false);
-			unmountSd();
+			if(mountSd())
+			{
+
+				loadFirm(false, true);
+				loadFirm(false, false);
+				unmountSd();
+			}
 		}
         loadFirm(true, false);
     }
