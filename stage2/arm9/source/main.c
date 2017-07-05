@@ -75,21 +75,24 @@ static void loadFirm(bool isNand, bool bootOnce)
 void main(void)
 {
     setupKeyslots();
-
+	
+    if(mountCtrNand())
+    {
+	    if(HID_PAD == SAFEBOOT_BUTTONS)
+		{
+			loadFirm(false, true);
+			loadFirm(false, false);
+			unmountSd();
+		}
+        loadFirm(true, false);
+    }
+	
     if(mountSd())
     {
-        /* Skip NTRBoot combo check and load firms */
 
         loadFirm(false, true);
         loadFirm(false, false);
         unmountSd();
-    }
-
-    if(mountCtrNand())
-    {
-        /* Skip NTRBoot button press check and skip straight to loading FIRM from CTRNAND. */
-
-        loadFirm(true, false);
     }
 
     mcuPowerOff();
