@@ -81,21 +81,17 @@ void main(void)
             if(mountSd())
             {
 
-                loadFirm(false, true);
-                loadFirm(false, false);
+                loadFirm(false);
                 unmountSd();
             }
         }
-        loadFirm(true, false);
     }
 
     if(mountSd())
     {
 
-        loadFirm(false, true);
-        loadFirm(false, false);
+        loadFirm(false);
         unmountSd();
     }
-
     mcuPowerOff();
 }
