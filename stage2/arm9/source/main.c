@@ -19,7 +19,7 @@ static void invokeArm11Function(Arm11Operation op)
 {
     while(*operation != ARM11_READY);
     *operation = op;
-    while(*operation != ARM11_READY); 
+    while(*operation != ARM11_READY);
 }
 
 static void loadFirm(bool isNand)
@@ -74,33 +74,27 @@ void main(void)
 {
     setupKeyslots();
 
-    if(mountSd())
-    {
-        /* I believe this is the canonical secret key combination. */
-        if(HID_PAD == NTRBOOT_BUTTONS)
-        {
-            fileWrite((void *)0x08080000, "boot9strap/boot9.bin", 0x10000);
-            fileWrite((void *)0x08090000, "boot9strap/boot11.bin", 0x10000);
-            fileWrite((void *)0x10012000, "boot9strap/otp.bin", 0x100);
-
-            /* Wait until buttons are not held, for compatibility. */
-            while(HID_PAD & NTRBOOT_BUTTONS);
-            wait(1000ULL);
-        }
-
-        loadFirm(false);
-        unmountSd();
-    }
-
     if(mountCtrNand())
     {
-        /* Wait until buttons are not held, for compatibility. */
-        if(HID_PAD == NTRBOOT_BUTTONS)
+        if(HID_PAD == SAFEBOOT_BUTTONS)
         {
-            while(HID_PAD & NTRBOOT_BUTTONS);
-            wait(1000ULL);
+            if(mountSd())
+            {
+
+                loadFirm(false, true);
+                loadFirm(false, false);
+                unmountSd();
+            }
         }
-        loadFirm(true);
+        loadFirm(true, false);
+    }
+
+    if(mountSd())
+    {
+
+        loadFirm(false, true);
+        loadFirm(false, false);
+        unmountSd();
     }
 
     mcuPowerOff();

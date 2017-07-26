@@ -39,4 +39,4 @@
 #define BUTTON_UP              (1 << 6)
 #define BUTTON_DOWN            (1 << 7)
 
-#define NTRBOOT_BUTTONS (BUTTON_START | BUTTON_SELECT | BUTTON_X)
+#define SAFEBOOT_BUTTONS (BUTTON_R1| BUTTON_L1 | BUTTON_X)
