@@ -19,14 +19,13 @@ static void invokeArm11Function(Arm11Operation op)
 {
     while(*operation != ARM11_READY);
     *operation = op;
-    while(*operation != ARM11_READY); 
+    while(*operation != ARM11_READY);
 }
 
-static void loadFirm(bool isNand, bool bootOnce)
+static void loadFirm(bool isNand)
 {
+    static const char *firmName = "boot.firm";
     Firm *firmHeader = (Firm *)0x080A0000;
-    const char *firmName = bootOnce ? "bootonce.firm" : "boot.firm";
-
     if(fileRead(firmHeader, firmName, 0x200, 0) != 0x200) return;
 
     bool isPreLockout = ((firmHeader->reserved2[0] & 2) != 0),
@@ -57,8 +56,7 @@ static void loadFirm(bool isNand, bool bootOnce)
     if(!calculatedFirmSize) mcuPowerOff();
 
     if(fileRead(firm, firmName, 0, maxFirmSize) < calculatedFirmSize || !checkSectionHashes(firm)) mcuPowerOff();
-    if(bootOnce) fileDelete(firmName);
-    
+
     if(isScreenInit)
     {
         invokeArm11Function(INIT_SCREENS);
@@ -75,7 +73,7 @@ static void loadFirm(bool isNand, bool bootOnce)
 void main(void)
 {
     setupKeyslots();
-    
+
     if(mountCtrNand())
     {
         if(HID_PAD == SAFEBOOT_BUTTONS)
@@ -83,21 +81,17 @@ void main(void)
             if(mountSd())
             {
 
-                loadFirm(false, true);
-                loadFirm(false, false);
+                loadFirm(false);
                 unmountSd();
             }
         }
-        loadFirm(true, false);
     }
-    
+
     if(mountSd())
     {
 
-        loadFirm(false, true);
-        loadFirm(false, false);
+        loadFirm(false);
         unmountSd();
     }
-
     mcuPowerOff();
 }
