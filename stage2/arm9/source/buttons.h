@@ -38,4 +38,5 @@
 #define BUTTON_LEFT            (1 << 5)
 #define BUTTON_UP              (1 << 6)
 #define BUTTON_DOWN            (1 << 7)
+
 #define SAFEBOOT_BUTTONS (BUTTON_R1| BUTTON_L1 | BUTTON_X)
