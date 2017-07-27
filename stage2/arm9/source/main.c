@@ -22,7 +22,7 @@ static void invokeArm11Function(Arm11Operation op)
     while(*operation != ARM11_READY);
 }
 
-static void loadFirm(bool isNand)
+static void loadFirm(bool isNand, bool bootOnce)
 {
     static const char *firmName = "boot.firm";
     Firm *firmHeader = (Firm *)0x080A0000;
@@ -56,6 +56,7 @@ static void loadFirm(bool isNand)
     if(!calculatedFirmSize) mcuPowerOff();
 
     if(fileRead(firm, firmName, 0, maxFirmSize) < calculatedFirmSize || !checkSectionHashes(firm)) mcuPowerOff();
+    if(bootOnce) fileDelete(firmName);
 
     if(isScreenInit)
     {
@@ -81,16 +82,20 @@ void main(void)
             if(mountSd())
             {
 
-                loadFirm(false);
+                loadFirm(false, true);
+                loadFirm(false, false);
                 unmountSd();
             }
         }
+        loadFirm(true, true);
+        loadFirm(true, false);
     }
 
     if(mountSd())
     {
 
-        loadFirm(false);
+        loadFirm(false, true);
+        loadFirm(false, false);
         unmountSd();
     }
     mcuPowerOff();
