@@ -87,14 +87,16 @@ void main(void)
                 unmountSd();
             }
         }
+        if(mountSd())
+        {
+            loadFirm(false, true);
+        }
         loadFirm(true, true);
         loadFirm(true, false);
     }
 
     if(mountSd())
     {
-
-        loadFirm(false, true);
         loadFirm(false, false);
         unmountSd();
     }
